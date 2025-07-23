@@ -5,7 +5,7 @@ This package contains scripts for creating the `notebook_drifter` required for L
 
 ## construction of the `notebook_drifter`:
 
-Requirment: the model configuratin grid file `grid_full.nc
+Requirment: the model configuratin grid file `grid_full.nc` 
 
 * first I run the script `coord_plume_release.py`
    	 * allow to choose the release period,
