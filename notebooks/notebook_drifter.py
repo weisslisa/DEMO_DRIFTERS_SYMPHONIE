@@ -1,24 +1,25 @@
 # -------LIB------------------
 import pandas as pd
+import os
 from datetime import datetime
 # -----------------------------
 
-path = '/home/weissli/Documents/SYMPHONIE/MODULE_DRIFTER/v3_plume/'
-
-# river = 'Indus' # Indus GBM Zambezi
-zone = '3zones'
-period = '2017-01-01'
+path = '../example_files/'
 
 ### open drifters information file with positions, sinking or rising velocity, time of release
-f = path + f'release_plume_4320_{period}_v3.txt' # '_2016-12-01.txt'
-# f_in = path + 'coord_plume_release_with_ws_450_2011-01-12_2011-01-14.txt'
+f = path + f'release_plume_288_drifters_2017-01-01_to_2017-01-03.txt'
 
-df = pd.read_table(f, delim_whitespace=True) # header=0
+with open(f, 'r') as file:
+    header = file.readline().lstrip('#').strip().split()
 
-# period of release
+df = pd.read_table(f, sep=r'\s+', names=header, skiprows=1) # header=0
 
 ### open destination file in writing mode
-destination = open(path + f'notebook_drifter_{zone}_{len(df)}_{period}_v3', "w")
+filename = os.path.basename(f)
+new_filename = filename.replace('release_plume', f'notebook_drifter')
+
+destination_path = os.path.join(path, new_filename)
+destination = open(destination_path, "w")
 
 ### write in destination file
 # write header (parameters can be modified)

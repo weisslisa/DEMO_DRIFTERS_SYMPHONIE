@@ -1,0 +1,874 @@
+1        ! 1=Lagragian drifters routine is on (=0 otherwise)                                             ! DRIFTER_ONOFF
+notebook ! initial mode: "notebook" or "fortran"                                                         ! DRIFTER_INITIAL_MODE
+3600.    ! sampling (seconds) of the outputs (<0 if no ascii output)                                     ! DRIFTER_OUT_SAMPLING
+2        ! Output files format: 0= one file per drifter, 1= one file with all drifters per mpi rank, 2= a single netcdf file per sampling  ! drifter_output_files
+2        ! Runge-Kutta order (RK1, RK2 or RK4) for drifters time stepping. RK2 is recommended.           ! rungekutta_order
+3        ! Time steps ratio: drifters time step over momentum equations time step (i.e. dt_drf/dti_fw)   ! dt_drf_over_dti_fw
+1 6      ! 1/0 (on/off) and storage index in drifter_l array for individual buoyancy / vertical velocity ! flag_buo_w,id_wdrifter
+0        ! 1 = add tke-dependent random vertical velocity, 2 = KH-dependent random w, 0 = no random w     ! drifter_random_w
+1        ! flag_stay_in_water=1 to prevent particles from settling on the bottom (0 otherwise)
+-- if "notebook" mode: give now the drifter list --- check that nbomax is big enough in parameter ----
+ 12.053270  65.420530   -1.6   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 0 0 0                          ! year, month, day, hour, minute, second
+ 11.262360  65.240220   -3.5   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 0 0 0                          ! year, month, day, hour, minute, second
+ 11.900600  64.092410   -3.9   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 1 0 0                          ! year, month, day, hour, minute, second
+ 12.809890  65.552640   -1.5   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 1 0 0                          ! year, month, day, hour, minute, second
+ 11.184950  64.783810   -4.0   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 2 0 0                          ! year, month, day, hour, minute, second
+ 11.775690  64.544380   -4.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 2 0 0                          ! year, month, day, hour, minute, second
+ 12.133520  65.495070   -1.7   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 3 0 0                          ! year, month, day, hour, minute, second
+ 12.036970  65.925250   -1.6   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 3 0 0                          ! year, month, day, hour, minute, second
+ 11.258090  65.046410   -4.8   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 4 0 0                          ! year, month, day, hour, minute, second
+ 12.324330  65.359100   -3.5   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 4 0 0                          ! year, month, day, hour, minute, second
+ 12.872810  64.873470   -3.8   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 5 0 0                          ! year, month, day, hour, minute, second
+ 12.749040  64.443770   -2.3   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 5 0 0                          ! year, month, day, hour, minute, second
+ 11.330950  64.914180   -1.9   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 6 0 0                          ! year, month, day, hour, minute, second
+ 11.424000  64.483600   -1.2   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 6 0 0                          ! year, month, day, hour, minute, second
+ 11.119970  65.217570   -2.7   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 7 0 0                          ! year, month, day, hour, minute, second
+ 12.893330  65.386120   -3.3   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 7 0 0                          ! year, month, day, hour, minute, second
+ 11.773960  64.190310   -4.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 8 0 0                          ! year, month, day, hour, minute, second
+ 12.076590  65.435600   -2.9   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 8 0 0                          ! year, month, day, hour, minute, second
+ 11.749110  65.366210   -3.5   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 9 0 0                          ! year, month, day, hour, minute, second
+ 12.518470  64.345650   -2.7   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 9 0 0                          ! year, month, day, hour, minute, second
+ 12.664640  65.445260   -3.2   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 10 0 0                          ! year, month, day, hour, minute, second
+ 12.317070  64.824720   -3.2   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 10 0 0                          ! year, month, day, hour, minute, second
+ 11.768320  64.198740   -4.0   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 11 0 0                          ! year, month, day, hour, minute, second
+ 11.516700  65.473950   -2.9   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 11 0 0                          ! year, month, day, hour, minute, second
+ 12.333650  65.647780   -4.2   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 12 0 0                          ! year, month, day, hour, minute, second
+ 11.871050  64.678850   -2.3   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 12 0 0                          ! year, month, day, hour, minute, second
+ 11.209430  65.560530   -2.8   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 13 0 0                          ! year, month, day, hour, minute, second
+ 12.329830  64.656380   -3.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 13 0 0                          ! year, month, day, hour, minute, second
+ 11.828460  64.782580   -2.0   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 14 0 0                          ! year, month, day, hour, minute, second
+ 12.558650  65.379280   -2.7   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 14 0 0                          ! year, month, day, hour, minute, second
+ 12.133860  64.703860   -3.8   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 15 0 0                          ! year, month, day, hour, minute, second
+ 12.239180  65.084130   -2.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 15 0 0                          ! year, month, day, hour, minute, second
+ 12.368230  64.204330   -4.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 16 0 0                          ! year, month, day, hour, minute, second
+ 11.571610  65.350370   -3.2   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 16 0 0                          ! year, month, day, hour, minute, second
+ 12.385600  65.597990   -4.2   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 17 0 0                          ! year, month, day, hour, minute, second
+ 12.518520  64.495930   -4.9   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 17 0 0                          ! year, month, day, hour, minute, second
+ 12.457330  64.496700   -3.3   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 18 0 0                          ! year, month, day, hour, minute, second
+ 12.146840  65.389120   -3.6   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 18 0 0                          ! year, month, day, hour, minute, second
+ 11.501120  65.128060   -4.7   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 19 0 0                          ! year, month, day, hour, minute, second
+ 12.599720  65.431420   -3.2   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 19 0 0                          ! year, month, day, hour, minute, second
+ 12.355530  65.363860   -4.1   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 20 0 0                          ! year, month, day, hour, minute, second
+ 12.666800  64.461440   -4.9   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 20 0 0                          ! year, month, day, hour, minute, second
+ 12.859960  65.109580   -4.1   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 21 0 0                          ! year, month, day, hour, minute, second
+ 12.515350  65.356660   -1.6   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 21 0 0                          ! year, month, day, hour, minute, second
+ 12.296000  64.818700   -3.3   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 22 0 0                          ! year, month, day, hour, minute, second
+ 11.042390  64.715230   -4.7   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 22 0 0                          ! year, month, day, hour, minute, second
+ 12.294140  65.275130   -3.9   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 23 0 0                          ! year, month, day, hour, minute, second
+ 11.997170  64.700410   -4.2   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 23 0 0                          ! year, month, day, hour, minute, second
+ 11.537720  64.928010   -3.2   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 0 0 0                          ! year, month, day, hour, minute, second
+ 12.631280  64.646910   -3.3   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 0 0 0                          ! year, month, day, hour, minute, second
+ 11.393670  64.194940   -4.5   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 1 0 0                          ! year, month, day, hour, minute, second
+ 12.941840  64.790260   -1.5   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 1 0 0                          ! year, month, day, hour, minute, second
+ 11.516040  65.182220   -1.1   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 2 0 0                          ! year, month, day, hour, minute, second
+ 12.274240  64.512250   -1.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 2 0 0                          ! year, month, day, hour, minute, second
+ 12.642850  64.452230   -3.8   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 3 0 0                          ! year, month, day, hour, minute, second
+ 11.863970  64.885530   -2.2   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 3 0 0                          ! year, month, day, hour, minute, second
+ 12.816430  65.389210   -3.9   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 4 0 0                          ! year, month, day, hour, minute, second
+ 11.918560  65.101150   -4.6   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 4 0 0                          ! year, month, day, hour, minute, second
+ 12.626240  65.249560   -2.1   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 5 0 0                          ! year, month, day, hour, minute, second
+ 12.081200  64.491330   -2.1   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 5 0 0                          ! year, month, day, hour, minute, second
+ 11.307420  65.681170   -2.7   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 6 0 0                          ! year, month, day, hour, minute, second
+ 11.141170  65.352850   -3.8   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 6 0 0                          ! year, month, day, hour, minute, second
+ 11.609220  64.565270   -1.3   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 7 0 0                          ! year, month, day, hour, minute, second
+ 12.336000  64.535210   -3.1   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 7 0 0                          ! year, month, day, hour, minute, second
+ 11.104910  65.231910   -4.1   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 8 0 0                          ! year, month, day, hour, minute, second
+ 11.388980  64.844520   -3.0   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 8 0 0                          ! year, month, day, hour, minute, second
+ 11.157870  64.515810   -3.3   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 9 0 0                          ! year, month, day, hour, minute, second
+ 11.044670  64.811300   -3.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 9 0 0                          ! year, month, day, hour, minute, second
+ 12.838820  64.503790   -1.5   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 10 0 0                          ! year, month, day, hour, minute, second
+ 11.442400  65.013080   -2.5   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 10 0 0                          ! year, month, day, hour, minute, second
+ 11.324130  65.036120   -1.7   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 11 0 0                          ! year, month, day, hour, minute, second
+ 12.148680  64.123610   -3.8   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 11 0 0                          ! year, month, day, hour, minute, second
+ 11.229960  65.652120   -2.2   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 12 0 0                          ! year, month, day, hour, minute, second
+ 12.239230  65.417780   -2.7   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 12 0 0                          ! year, month, day, hour, minute, second
+ 12.595370  65.602480   -2.2   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 13 0 0                          ! year, month, day, hour, minute, second
+ 11.237860  64.505800   -1.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 13 0 0                          ! year, month, day, hour, minute, second
+ 12.173400  65.483610   -4.3   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 14 0 0                          ! year, month, day, hour, minute, second
+ 11.860020  64.658240   -4.8   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 14 0 0                          ! year, month, day, hour, minute, second
+ 11.667730  65.935200   -4.5   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 15 0 0                          ! year, month, day, hour, minute, second
+ 12.342860  64.789390   -3.0   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 15 0 0                          ! year, month, day, hour, minute, second
+ 12.011670  65.106520   -1.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 16 0 0                          ! year, month, day, hour, minute, second
+ 12.040670  65.012720   -2.9   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 16 0 0                          ! year, month, day, hour, minute, second
+ 11.278670  65.450730   -1.8   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 17 0 0                          ! year, month, day, hour, minute, second
+ 11.796960  64.369910   -3.7   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 17 0 0                          ! year, month, day, hour, minute, second
+ 12.701060  65.168870   -3.2   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 18 0 0                          ! year, month, day, hour, minute, second
+ 12.488530  64.192880   -3.7   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 18 0 0                          ! year, month, day, hour, minute, second
+ 11.455800  65.231230   -1.2   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 19 0 0                          ! year, month, day, hour, minute, second
+ 11.486450  65.615460   -2.3   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 19 0 0                          ! year, month, day, hour, minute, second
+ 11.324910  65.321670   -4.5   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 20 0 0                          ! year, month, day, hour, minute, second
+ 12.788160  65.301340   -3.7   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 20 0 0                          ! year, month, day, hour, minute, second
+ 12.467590  64.386260   -3.8   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 21 0 0                          ! year, month, day, hour, minute, second
+ 12.194310  65.148930   -4.0   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 21 0 0                          ! year, month, day, hour, minute, second
+ 11.779680  64.779080   -2.7   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 22 0 0                          ! year, month, day, hour, minute, second
+ 12.513840  65.356490   -3.1   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 22 0 0                          ! year, month, day, hour, minute, second
+ 12.334940  65.498790   -1.1   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 23 0 0                          ! year, month, day, hour, minute, second
+ 12.341260  65.242020   -1.9   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 23 0 0                          ! year, month, day, hour, minute, second
+ 11.261710  88.056080   -3.3   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 0 0 0                          ! year, month, day, hour, minute, second
+ 11.985490  88.197970   -1.5   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 0 0 0                          ! year, month, day, hour, minute, second
+ 12.433350  87.294290   -1.1   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 1 0 0                          ! year, month, day, hour, minute, second
+ 12.474580  88.574210   -1.9   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 1 0 0                          ! year, month, day, hour, minute, second
+ 11.359570  88.375850   -3.8   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 2 0 0                          ! year, month, day, hour, minute, second
+ 12.887240  88.052260   -4.3   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 2 0 0                          ! year, month, day, hour, minute, second
+ 12.136120  87.047960   -2.9   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 3 0 0                          ! year, month, day, hour, minute, second
+ 11.083770  87.805610   -1.3   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 3 0 0                          ! year, month, day, hour, minute, second
+ 11.773280  87.621730   -2.9   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 4 0 0                          ! year, month, day, hour, minute, second
+ 11.301270  87.498860   -4.8   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 4 0 0                          ! year, month, day, hour, minute, second
+ 12.472130  87.514950   -2.9   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 5 0 0                          ! year, month, day, hour, minute, second
+ 11.476730  87.517590   -3.2   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 5 0 0                          ! year, month, day, hour, minute, second
+ 12.487830  88.444350   -2.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 6 0 0                          ! year, month, day, hour, minute, second
+ 11.482660  88.820440   -4.7   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 6 0 0                          ! year, month, day, hour, minute, second
+ 11.130100  87.809980   -1.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 7 0 0                          ! year, month, day, hour, minute, second
+ 12.399840  87.227250   -3.9   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 7 0 0                          ! year, month, day, hour, minute, second
+ 11.826580  88.642000   -4.7   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 8 0 0                          ! year, month, day, hour, minute, second
+ 11.715750  87.731130   -2.9   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 8 0 0                          ! year, month, day, hour, minute, second
+ 11.863410  88.582060   -1.7   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 9 0 0                          ! year, month, day, hour, minute, second
+ 12.037570  88.709290   -3.1   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 9 0 0                          ! year, month, day, hour, minute, second
+ 11.065560  88.036880   -3.5   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 10 0 0                          ! year, month, day, hour, minute, second
+ 12.727220  88.267930   -4.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 10 0 0                          ! year, month, day, hour, minute, second
+ 12.933330  88.345690   -4.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 11 0 0                          ! year, month, day, hour, minute, second
+ 12.213120  88.610560   -2.6   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 11 0 0                          ! year, month, day, hour, minute, second
+ 12.203390  88.854310   -2.5   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 12 0 0                          ! year, month, day, hour, minute, second
+ 11.935780  88.508360   -4.3   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 12 0 0                          ! year, month, day, hour, minute, second
+ 11.880480  87.665650   -1.9   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 13 0 0                          ! year, month, day, hour, minute, second
+ 11.361600  88.055940   -3.9   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 13 0 0                          ! year, month, day, hour, minute, second
+ 11.816500  88.505300   -1.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 14 0 0                          ! year, month, day, hour, minute, second
+ 11.315430  87.721170   -1.6   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 14 0 0                          ! year, month, day, hour, minute, second
+ 12.434110  87.936180   -4.6   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 15 0 0                          ! year, month, day, hour, minute, second
+ 11.974520  88.968490   -2.8   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 15 0 0                          ! year, month, day, hour, minute, second
+ 12.164820  87.219710   -4.5   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 16 0 0                          ! year, month, day, hour, minute, second
+ 11.364110  87.838870   -1.2   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 16 0 0                          ! year, month, day, hour, minute, second
+ 11.548990  88.114430   -3.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 17 0 0                          ! year, month, day, hour, minute, second
+ 12.545890  87.876060   -2.2   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 17 0 0                          ! year, month, day, hour, minute, second
+ 12.121930  87.845790   -3.8   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 18 0 0                          ! year, month, day, hour, minute, second
+ 12.216350  87.281480   -3.9   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 18 0 0                          ! year, month, day, hour, minute, second
+ 12.783380  87.473790   -4.0   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 19 0 0                          ! year, month, day, hour, minute, second
+ 11.850980  88.120960   -3.1   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 19 0 0                          ! year, month, day, hour, minute, second
+ 11.312120  87.522770   -1.1   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 20 0 0                          ! year, month, day, hour, minute, second
+ 12.268710  87.787060   -2.8   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 20 0 0                          ! year, month, day, hour, minute, second
+ 11.721060  87.275920   -3.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 21 0 0                          ! year, month, day, hour, minute, second
+ 12.280240  88.156850   -1.7   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 21 0 0                          ! year, month, day, hour, minute, second
+ 11.677140  87.220860   -1.8   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 22 0 0                          ! year, month, day, hour, minute, second
+ 12.087540  88.658920   -1.0   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 22 0 0                          ! year, month, day, hour, minute, second
+ 12.240120  87.164190   -1.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 23 0 0                          ! year, month, day, hour, minute, second
+ 11.551580  88.523500   -1.8   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 23 0 0                          ! year, month, day, hour, minute, second
+ 12.885500  88.016330   -4.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 0 0 0                          ! year, month, day, hour, minute, second
+ 11.869060  87.948160   -4.8   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 0 0 0                          ! year, month, day, hour, minute, second
+ 11.289490  87.355330   -4.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 1 0 0                          ! year, month, day, hour, minute, second
+ 11.522140  87.412640   -2.7   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 1 0 0                          ! year, month, day, hour, minute, second
+ 11.165230  88.078880   -2.2   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 2 0 0                          ! year, month, day, hour, minute, second
+ 12.363120  88.124310   -2.7   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 2 0 0                          ! year, month, day, hour, minute, second
+ 12.273450  88.866900   -4.8   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 3 0 0                          ! year, month, day, hour, minute, second
+ 11.714780  88.849140   -1.9   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 3 0 0                          ! year, month, day, hour, minute, second
+ 11.948800  87.391840   -3.6   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 4 0 0                          ! year, month, day, hour, minute, second
+ 12.376910  87.608870   -3.2   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 4 0 0                          ! year, month, day, hour, minute, second
+ 12.288440  88.253710   -3.7   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 5 0 0                          ! year, month, day, hour, minute, second
+ 12.325510  87.114030   -2.1   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 5 0 0                          ! year, month, day, hour, minute, second
+ 12.445160  88.463010   -4.1   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 6 0 0                          ! year, month, day, hour, minute, second
+ 12.087690  88.299720   -1.3   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 6 0 0                          ! year, month, day, hour, minute, second
+ 12.359200  88.121970   -1.9   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 7 0 0                          ! year, month, day, hour, minute, second
+ 12.085140  87.889580   -3.8   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 7 0 0                          ! year, month, day, hour, minute, second
+ 12.868520  87.753290   -3.3   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 8 0 0                          ! year, month, day, hour, minute, second
+ 11.785810  87.065100   -2.5   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 8 0 0                          ! year, month, day, hour, minute, second
+ 11.704250  88.486250   -2.9   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 9 0 0                          ! year, month, day, hour, minute, second
+ 11.731570  87.025800   -2.6   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 9 0 0                          ! year, month, day, hour, minute, second
+ 12.368790  88.918380   -4.0   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 10 0 0                          ! year, month, day, hour, minute, second
+ 11.407620  88.483410   -4.3   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 10 0 0                          ! year, month, day, hour, minute, second
+ 12.207750  87.071530   -3.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 11 0 0                          ! year, month, day, hour, minute, second
+ 11.746070  87.462290   -2.1   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 11 0 0                          ! year, month, day, hour, minute, second
+ 11.694130  87.094910   -3.6   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 12 0 0                          ! year, month, day, hour, minute, second
+ 12.312200  88.177770   -3.2   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 12 0 0                          ! year, month, day, hour, minute, second
+ 12.135530  88.789560   -2.0   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 13 0 0                          ! year, month, day, hour, minute, second
+ 12.807150  87.452630   -1.8   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 13 0 0                          ! year, month, day, hour, minute, second
+ 11.623750  87.418420   -1.6   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 14 0 0                          ! year, month, day, hour, minute, second
+ 12.643170  87.839110   -1.7   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 14 0 0                          ! year, month, day, hour, minute, second
+ 12.833700  87.844320   -3.1   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 15 0 0                          ! year, month, day, hour, minute, second
+ 11.873700  87.134390   -1.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 15 0 0                          ! year, month, day, hour, minute, second
+ 12.181820  87.595820   -2.6   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 16 0 0                          ! year, month, day, hour, minute, second
+ 11.976130  88.204470   -3.1   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 16 0 0                          ! year, month, day, hour, minute, second
+ 12.441910  88.023970   -2.1   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 17 0 0                          ! year, month, day, hour, minute, second
+ 12.317200  87.228550   -4.0   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 17 0 0                          ! year, month, day, hour, minute, second
+ 11.362930  88.706060   -3.8   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 18 0 0                          ! year, month, day, hour, minute, second
+ 12.533350  87.891670   -1.2   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 18 0 0                          ! year, month, day, hour, minute, second
+ 11.452140  88.164190   -3.3   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 19 0 0                          ! year, month, day, hour, minute, second
+ 11.817100  87.153730   -3.3   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 19 0 0                          ! year, month, day, hour, minute, second
+ 12.512000  88.274490   -1.8   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 20 0 0                          ! year, month, day, hour, minute, second
+ 12.715860  87.386050   -3.0   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 20 0 0                          ! year, month, day, hour, minute, second
+ 11.969050  88.369230   -4.1   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 21 0 0                          ! year, month, day, hour, minute, second
+ 12.461020  87.247920   -3.5   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 21 0 0                          ! year, month, day, hour, minute, second
+ 12.231630  88.089670   -4.2   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 22 0 0                          ! year, month, day, hour, minute, second
+ 11.853490  88.906600   -1.6   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 22 0 0                          ! year, month, day, hour, minute, second
+ 11.379520  88.497060   -1.9   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 23 0 0                          ! year, month, day, hour, minute, second
+ 11.570260  87.691070   -4.2   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 23 0 0                          ! year, month, day, hour, minute, second
+-21.648770  38.081910   -4.0   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 0 0 0                          ! year, month, day, hour, minute, second
+-21.470720  39.594880   -4.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 0 0 0                          ! year, month, day, hour, minute, second
+-22.611230  38.373330   -4.5   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 1 0 0                          ! year, month, day, hour, minute, second
+-21.807710  38.167770   -2.7   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 1 0 0                          ! year, month, day, hour, minute, second
+-22.910850  38.927420   -1.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 2 0 0                          ! year, month, day, hour, minute, second
+-21.576560  38.026090   -1.1   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 2 0 0                          ! year, month, day, hour, minute, second
+-22.570000  38.874130   -2.7   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 3 0 0                          ! year, month, day, hour, minute, second
+-21.417610  38.884130   -2.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 3 0 0                          ! year, month, day, hour, minute, second
+-21.414620  39.577380   -4.2   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 4 0 0                          ! year, month, day, hour, minute, second
+-21.874420  39.164430   -4.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 4 0 0                          ! year, month, day, hour, minute, second
+-21.786020  38.902580   -3.0   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 5 0 0                          ! year, month, day, hour, minute, second
+-21.878390  39.552630   -3.9   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 5 0 0                          ! year, month, day, hour, minute, second
+-21.412080  39.816050   -1.5   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 6 0 0                          ! year, month, day, hour, minute, second
+-22.940210  38.808900   -3.8   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 6 0 0                          ! year, month, day, hour, minute, second
+-22.535210  39.096600   -4.2   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 7 0 0                          ! year, month, day, hour, minute, second
+-21.887980  38.494810   -4.3   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 7 0 0                          ! year, month, day, hour, minute, second
+-22.653030  39.432710   -3.5   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 8 0 0                          ! year, month, day, hour, minute, second
+-22.245310  39.341710   -2.1   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 8 0 0                          ! year, month, day, hour, minute, second
+-21.069630  39.065430   -2.3   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 9 0 0                          ! year, month, day, hour, minute, second
+-22.731500  39.421120   -3.6   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 9 0 0                          ! year, month, day, hour, minute, second
+-22.804980  38.527500   -4.1   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 10 0 0                          ! year, month, day, hour, minute, second
+-22.635290  38.526690   -4.8   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 10 0 0                          ! year, month, day, hour, minute, second
+-22.204910  38.000220   -2.6   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 11 0 0                          ! year, month, day, hour, minute, second
+-21.239700  39.603100   -1.3   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 11 0 0                          ! year, month, day, hour, minute, second
+-22.797450  39.597970   -2.3   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 12 0 0                          ! year, month, day, hour, minute, second
+-21.399600  39.563010   -2.3   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 12 0 0                          ! year, month, day, hour, minute, second
+-21.410690  39.723090   -2.1   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 13 0 0                          ! year, month, day, hour, minute, second
+-21.591700  39.355440   -3.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 13 0 0                          ! year, month, day, hour, minute, second
+-22.706610  39.154910   -4.8   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 14 0 0                          ! year, month, day, hour, minute, second
+-22.003130  39.099760   -2.0   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 14 0 0                          ! year, month, day, hour, minute, second
+-21.400560  39.100080   -3.0   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 15 0 0                          ! year, month, day, hour, minute, second
+-21.680190  38.080930   -4.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 15 0 0                          ! year, month, day, hour, minute, second
+-22.005740  38.018430   -4.5   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 16 0 0                          ! year, month, day, hour, minute, second
+-22.205690  37.966170   -1.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 16 0 0                          ! year, month, day, hour, minute, second
+-21.980630  39.941860   -2.6   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 17 0 0                          ! year, month, day, hour, minute, second
+-21.788190  39.030570   -4.3   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 17 0 0                          ! year, month, day, hour, minute, second
+-22.689150  38.312530   -2.3   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 18 0 0                          ! year, month, day, hour, minute, second
+-22.246180  38.185590   -1.6   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 18 0 0                          ! year, month, day, hour, minute, second
+-22.504240  38.577680   -3.7   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 19 0 0                          ! year, month, day, hour, minute, second
+-21.405270  39.365100   -3.8   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 19 0 0                          ! year, month, day, hour, minute, second
+-21.918830  38.521560   -4.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 20 0 0                          ! year, month, day, hour, minute, second
+-21.821870  38.729920   -1.6   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 20 0 0                          ! year, month, day, hour, minute, second
+-22.764370  38.498080   -4.9   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 21 0 0                          ! year, month, day, hour, minute, second
+-22.683190  39.520760   -2.8   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 21 0 0                          ! year, month, day, hour, minute, second
+-22.502680  39.612150   -1.7   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 22 0 0                          ! year, month, day, hour, minute, second
+-22.415870  39.248270   -3.8   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 22 0 0                          ! year, month, day, hour, minute, second
+-21.622850  38.650040   -1.3   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 23 0 0                          ! year, month, day, hour, minute, second
+-22.625340  38.355260   -2.9   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 1 23 0 0                          ! year, month, day, hour, minute, second
+-22.793940  38.703530   -2.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 0 0 0                          ! year, month, day, hour, minute, second
+-21.989460  39.213490   -4.5   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 0 0 0                          ! year, month, day, hour, minute, second
+-22.270390  39.314680   -1.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 1 0 0                          ! year, month, day, hour, minute, second
+-21.806930  38.368070   -4.7   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 1 0 0                          ! year, month, day, hour, minute, second
+-22.531060  39.340310   -2.1   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 2 0 0                          ! year, month, day, hour, minute, second
+-22.715700  38.345090   -3.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 2 0 0                          ! year, month, day, hour, minute, second
+-22.867340  38.566180   -1.9   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 3 0 0                          ! year, month, day, hour, minute, second
+-21.347670  39.722250   -3.1   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 3 0 0                          ! year, month, day, hour, minute, second
+-22.291760  39.973380   -3.3   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 4 0 0                          ! year, month, day, hour, minute, second
+-22.744270  38.904270   -4.9   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 4 0 0                          ! year, month, day, hour, minute, second
+-22.276050  39.328420   -4.0   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 5 0 0                          ! year, month, day, hour, minute, second
+-22.484640  39.286720   -1.0   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 5 0 0                          ! year, month, day, hour, minute, second
+-22.487490  38.911500   -3.0   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 6 0 0                          ! year, month, day, hour, minute, second
+-21.702530  38.942750   -2.8   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 6 0 0                          ! year, month, day, hour, minute, second
+-22.249770  39.961310   -3.3   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 7 0 0                          ! year, month, day, hour, minute, second
+-21.536040  38.475270   -4.1   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 7 0 0                          ! year, month, day, hour, minute, second
+-21.662900  38.588790   -2.8   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 8 0 0                          ! year, month, day, hour, minute, second
+-21.861910  38.620470   -2.0   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 8 0 0                          ! year, month, day, hour, minute, second
+-22.893650  39.167820   -3.0   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 9 0 0                          ! year, month, day, hour, minute, second
+-22.030700  39.084310   -2.5   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 9 0 0                          ! year, month, day, hour, minute, second
+-22.122950  39.271800   -3.3   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 10 0 0                          ! year, month, day, hour, minute, second
+-22.850420  38.826400   -4.1   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 10 0 0                          ! year, month, day, hour, minute, second
+-21.355340  38.942370   -4.5   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 11 0 0                          ! year, month, day, hour, minute, second
+-22.030420  38.419800   -1.3   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 11 0 0                          ! year, month, day, hour, minute, second
+-22.235590  39.355250   -2.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 12 0 0                          ! year, month, day, hour, minute, second
+-22.050020  38.067200   -3.3   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 12 0 0                          ! year, month, day, hour, minute, second
+-21.145570  39.432490   -4.5   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 13 0 0                          ! year, month, day, hour, minute, second
+-22.378380  39.277180   -5.0   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 13 0 0                          ! year, month, day, hour, minute, second
+-22.034950  39.044890   -4.3   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 14 0 0                          ! year, month, day, hour, minute, second
+-22.469540  38.330610   -4.0   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 14 0 0                          ! year, month, day, hour, minute, second
+-22.204960  39.887560   -4.2   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 15 0 0                          ! year, month, day, hour, minute, second
+-21.610640  38.215000   -4.1   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 15 0 0                          ! year, month, day, hour, minute, second
+-22.595910  38.728300   -1.1   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 16 0 0                          ! year, month, day, hour, minute, second
+-21.521330  39.650590   -1.2   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 16 0 0                          ! year, month, day, hour, minute, second
+-21.317810  38.671070   -1.7   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 17 0 0                          ! year, month, day, hour, minute, second
+-22.043880  37.984350   -1.2   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 17 0 0                          ! year, month, day, hour, minute, second
+-22.051200  39.571720   -3.5   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 18 0 0                          ! year, month, day, hour, minute, second
+-21.934390  38.896550   -1.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 18 0 0                          ! year, month, day, hour, minute, second
+-21.905690  39.546010   -4.2   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 19 0 0                          ! year, month, day, hour, minute, second
+-21.705410  38.647620   -4.5   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 19 0 0                          ! year, month, day, hour, minute, second
+-21.309670  38.345830   -1.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 20 0 0                          ! year, month, day, hour, minute, second
+-22.233640  39.606800   -3.4   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 20 0 0                          ! year, month, day, hour, minute, second
+-21.144160  38.635450   -2.2   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 21 0 0                          ! year, month, day, hour, minute, second
+-21.835570  38.000670   -3.3   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 21 0 0                          ! year, month, day, hour, minute, second
+-21.596110  38.108330   -4.7   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 22 0 0                          ! year, month, day, hour, minute, second
+-21.875350  39.805310   -4.3   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 22 0 0                          ! year, month, day, hour, minute, second
+-22.921480  39.355840   -1.5   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 23 0 0                          ! year, month, day, hour, minute, second
+-22.256670  39.756340   -3.6   0        !---- arg4=1: i j k, arg4=0: lat lon z of the drifter
+0.000                                   ! vertical_buoyancy_velocity
+2017 1 2 23 0 0                          ! year, month, day, hour, minute, second
