@@ -13,14 +13,14 @@ import sys
 ### Grid and offlines SYMPHONIE (normal version of SYMPHONIE)
 path = '../example_files/'
 path_fig = '../example_fig/'
-grid = '../example_files/grid_full_60_regular12.nc'
+grid = '../example_files/grid/grid_full_60_regular12.nc'
 
 ###############################################################################
 ### release period
 # here indicates the period of release 'DJF', 'JJA', 'other' if you want to choose manually the oeriod in the script. You can add other options here after
 period = 'other'
 # here indicates the timestep between each release, i.e. every days, hours, minutes, seconds
-step = 'seconds'
+step = 'hours'
 # here indicates the number of particles to be release at each timestep
 particles_per_timestep = 2
 
@@ -193,7 +193,7 @@ Id_P = pd.DataFrame(np.arange(1, len(M)+1))
 final = pd.concat([Id_P, M, total_release_dates, ws], axis=1)  # np.matrix().T
 print(len(total_release_dates), len(M), len(Id_P), len(ws), len(final))
 
-np.savetxt(path + 'release_plume_' + str(len(final)) + '_drifters_' + str(start_date.strftime("%Y-%m-%d")) + '_to_' + str(stop_date.strftime("%Y-%m-%d")) + '.txt',
+np.savetxt(path + 'preprocessing/release_plume_' + str(len(final)) + '_drifters_' + str(start_date.strftime("%Y-%m-%d")) + '_to_' + str(stop_date.strftime("%Y-%m-%d")) + '.txt',
            final,
            fmt=('%4i', '%9.5f', '%9.5f', '%4.1f', '%4i', '%2i', '%2i', '%2i', '%2i', '%2i', '%5.3f'),
            header='Id_P lon lat z year month day h m s ws')

@@ -4,7 +4,7 @@ import os
 from datetime import datetime
 # -----------------------------
 
-path = '../example_files/'
+path = '../example_files/preprocessing/'
 
 ### open drifters information file with positions, sinking or rising velocity, time of release
 f = path + f'release_plume_288_drifters_2017-01-01_to_2017-01-03.txt'
